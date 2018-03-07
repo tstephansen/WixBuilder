@@ -1,0 +1,66 @@
+﻿<Window x:Class="WixBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WixBuilder"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Margin="5"
+                    Orientation="Horizontal">
+            <Label Content="Directory:" />
+            <TextBox x:Name="NewDirectoryTextBox"
+                     MinWidth="400"
+                     Margin="5,0,0,0"
+                     Text="{Binding DirectoryName}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Margin="5"
+                    Orientation="Horizontal">
+            <Label Content="Variable:" />
+            <TextBox MinWidth="400"
+                     Margin="5,0,0,0"
+                     Text="{Binding VariableName}" />
+            <Button Margin="10,0,0,0"
+                    Command="{Binding AddDirectoryCommand}"
+                    Content="Add Directory" />
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0"
+                     DisplayMemberPath="Key"
+                     ItemsSource="{Binding Directories}" />
+            <!--<ListBox Grid.Column="0" ItemsSource="{Binding DirectoryCollection}" />-->
+            <StackPanel Grid.Column="1">
+                <Button Margin="5"
+                        Command="{Binding RemoveDirectoryCommand}"
+                        Content="Remove Selected Directory" />
+                <Button Margin="5"
+                        Command="{Binding ProcessCommand}"
+                        Content="Process" />
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Label Content="Dependency File Save Location:" />
+            <TextBox MinWidth="400"
+                     Margin="5"
+                     Text="{Binding DependencyFilePath}" />
+        </StackPanel>
+    </Grid>
+</Window>
